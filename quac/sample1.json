@@ -1,0 +1,52 @@
+{
+    "sample1": {
+        "global": {
+            "fib": {
+                "n": [
+                    "builtins.int"
+                ],
+                "return": [
+                    "builtins.int"
+                ]
+            },
+            "int_add": {
+                "a": [
+                    "builtins.str"
+                ],
+                "b": [
+                    "builtins.str"
+                ],
+                "return": [
+                    "builtins.str"
+                ]
+            },
+            "int_tripple_add": {
+                "a": [
+                    "_typeshed.SupportsAdd"
+                ],
+                "b": [
+                    "_typeshed.SupportsAdd"
+                ],
+                "c": [
+                    "_typeshed.SupportsAdd"
+                ],
+                "return": [
+                    "_typeshed.SupportsAdd"
+                ]
+            }
+        },
+        "Wrapper": {
+            "foo": {
+                "bar": [
+                    "builtins.int"
+                ],
+                "return": [
+                    "builtins.int"
+                ]
+            },
+            "inc": {
+                "return": []
+            }
+        }
+    }
+}
