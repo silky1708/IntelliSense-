@@ -1,6 +1,3 @@
-# binary search -- function with many parameters
-
-binary_search()
 def binary_search(start, end, numbers, target):
     if start > end: return start
     mid = start + (end-start)//2
