@@ -5,7 +5,7 @@ This repository contains the code for MP system designed as part of CS 329M proj
 
 ## Installation
 
-Create a virtual environment and install flask, react, npm, and vite. Additionally, ensure that all the requirements of [QuAC](https://github.com/jifengwu2k/quac) are installed in the same environment, following the installation instructions given in their repository.
+Create a virtual environment and minimally install flask, react, npm, and vite. Additionally, ensure that all the requirements of [QuAC](https://github.com/jifengwu2k/quac) are installed in the same environment, following the installation instructions given in their repository.
 
 ## Running the web application
 
