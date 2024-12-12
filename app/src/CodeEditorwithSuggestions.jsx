@@ -3,27 +3,15 @@ import Editor from "react-simple-code-editor";
 import Prism from "prismjs"; // For syntax highlighting
 import "prismjs/themes/prism.css"; // Import a Prism theme
 import "prismjs/components/prism-python"; // Add Python language support
-import axios from "axios";
 
 
 const CodeEditorWithSuggestions = () => {
     const [code, setCode] = useState("# happy coding!\n");
     const [suggestions, setSuggestions] = useState([]);
-    // const [showSuggestions, setShowSuggestions] = useState(false);
     const [cursorPosition, setCursorPosition] = useState({ line: 0, column: 0 });
     const [displayInfo, setDisplayInfo] = useState([]);
     const editorRef = useRef();
 
-    // const handleCursorPositionChange = (cursor) => {
-    //     // event.clientX - event.target.offsetLeft,
-    //     // event.clientY - event.target.offsetTop
-
-    //     setCursorPosition(cursor);
-    //     console.log("cursor position changed!")
-    //     console.log(cursor);
-    // }
-
-    // document.addEventListener("click", handleOutsideClick);
     const handleOutsideClick = () => {
         setSuggestions([]);
     }
@@ -31,26 +19,6 @@ const CodeEditorWithSuggestions = () => {
     // Highlight function for syntax highlighting
     const highlightCode = (code) =>
         Prism.highlight(code, Prism.languages.python, "python");
-
-    // Handle text change
-    // const handleChange = async (newCode) => {
-    //     setCode(newCode);
-    //     console.log(code);
-
-    //     try {
-    //         const response = await axios.post("http://127.0.0.1:5000/suggest", {
-    //             code_context: code,
-    //         });
-
-    //         // Process the response
-    //         setSuggestions(response.data);
-    //         console.log(suggestions);
-    //         // setError(null);
-    //     } catch (err) {
-    //         // Handle errors
-    //         // setError(err.response?.data || err.message);
-    //         setSuggestions(null);
-    //     }
 
     const handleChange = (newCode) => {
         setCode(newCode);
@@ -62,34 +30,8 @@ const CodeEditorWithSuggestions = () => {
         setCursorPosition({line: lines, column: columns}); // {line: 0, column: 0}
     };
 
-
-        // Find the word at the cursor
-        // const match = newCode.match(/(\w+)$/); // Match the last word
-        // if (match) {
-        //     const inputWord = match[1];
-        //     const filteredSuggestions = suggestionsList.filter((suggestion) =>
-        //         suggestion.startsWith(inputWord)
-        //     );
-
-        //     if (filteredSuggestions.length > 0) {
-        //         setSuggestions(filteredSuggestions);
-        //         const cursorRect = editorRef.current.getBoundingClientRect();
-        //         setCursorPosition({ top: cursorRect.top + 20, left: cursorRect.left + 10 });
-        //     } else {
-        //         setSuggestions([]);
-        //     }
-        // } else {
-        //     setSuggestions([]);
-        // }
-    
-
     // Insert suggestion into the code
     const handleSuggestionClick = (suggestion, index) => {
-        // const updatedCode = code.replace(/(\w+)$/, suggestion); // Replace the last word
-        // const updatedCode = code + suggestion
-        // setCode(updatedCode);
-        // setSuggestions([]);
-
         const N = suggestions.length;
         const booleanArray = new Array(N).fill(false);
         if (index >= 0 && index < N) {
@@ -100,7 +42,7 @@ const CodeEditorWithSuggestions = () => {
     
     const handleKeyDown = async (event) => {
         if (event.key === "Tab") {
-          event.preventDefault(); // Prevent the default tab behavior (focusing on the next element)
+          event.preventDefault(); // Prevent the default tab behavior
           console.log("== Running inference on the following code ==")
           console.log(code);
 
@@ -119,13 +61,9 @@ const CodeEditorWithSuggestions = () => {
                 setSuggestions(data.suggestions);
                 console.log(data.message);  // Access JSON fields
                 console.log(data.suggestions);
-
-                // const cursorRect = editorRef.current.getBoundingClientRect();
-                // setCursorPosition({ top: cursorRect.top + 20, left: cursorRect.left + 10 });
             } else {
                 console.error('Error:', response.status, response.statusText);
             }
-          
         }
       };
 
@@ -158,9 +96,6 @@ const CodeEditorWithSuggestions = () => {
                     color: "#808080"
                 }}
             >
-                {/* <div class="line">1</div>
-                <div class="line">1</div>
-                <div class="line">1</div> */}
             </div>
             {/* code editor */}
             <div
@@ -174,7 +109,6 @@ const CodeEditorWithSuggestions = () => {
                     position: "relative",
                     flexGrow: 1
                 }}
-                // onCursorPositionChange={handleCursorPositionChange}
             >
                 <Editor
                     value={code}
@@ -209,14 +143,8 @@ const CodeEditorWithSuggestions = () => {
                         <li
                             key={index}
                             onClick={() => handleSuggestionClick(suggestion, index)}
-                            // onKeyDown={(event) => {
-                            //     if(event.key === "Enter"){
-                            //         handleSuggestionClick(suggestion)
-                            //     }}
-                            // }
                             style={{
                                 padding: "5px 10px",
-                                // cursor: "pointer",
                                 backgroundColor: "#f0f0f0", // "transparent", //index === 0 ? "#f0f0f0" 
                                 fontFamily: "'Fira Code', monospace",
                                 fontSize: 14,
@@ -233,11 +161,9 @@ const CodeEditorWithSuggestions = () => {
                                 onMouseEnter={(e) => (e.target.style.background = "#e6e6e6")}
                                 onMouseLeave={(e) => (e.target.style.background = "#f9f9f9")}
                                 >
-                                    {/* <li>{suggestion["description"]}</li> */}
                                     {suggestion["description"] && (<li>{suggestion["description"]}</li>)}
                                     {suggestion["default_value"] && (<li>{"default: " + suggestion["default_value"]}</li>)}
                                     {suggestion["suggestions"].length > 0 && (<li>{"Suggested values: " + suggestion["suggestions"]}</li>)}
-                                    {/* <li>{"Suggested values: " + suggestion["suggestions"]}</li> */}
                                 </ul>
                             )}
                         </li>

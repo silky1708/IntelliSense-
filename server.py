@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, render_template, url_for, request
 from flask_cors import CORS
-import sqlite3
 
 import sys
 sys.path.insert(0, 'quac/quac')
@@ -14,9 +13,6 @@ import re
 app = Flask(__name__)
 cors = CORS(app, origins='*')
 
-# building the database
-# data = sqlite3.connect('data.sqlite')
-# data.close()
 
 K = 3      # how many suggestions to display??
 
@@ -175,20 +171,8 @@ def get_suggestion():
         global_imports = parse_global_imports(code_context)
         with open('params_db.json', 'r') as fp:
             params_db = json.load(fp)
-        # params_db = {k: v for k,v in params_db.items() if k in global_imports}   # filter out the libraries/imports that are actually used in the code..
         module, func = get_module_and_function(code_context)
         
-        # if param_metadata is None:
-        #     print(f"No parameter information for module: {module} and func: {func} in the database!")
-        #     output_dict = {
-        #         "message": "OK",
-        #         "suggestions": []
-        #     }
-
-        #     response = jsonify(output_dict)
-        #     response.headers.add('Access-Control-Allow-Origin', '*')
-        #     return response
-
         code_context_wo_last_line = '\n'.join(code_context.split('\n')[:-1])
         global_variables = parse_global_variables(code_context_wo_last_line)
 
@@ -207,7 +191,7 @@ def get_suggestion():
         print('candidates:\n', global_functions | resolved_global_variables)
         suggestions = []
         param_metadata = get_parameters_metadata(module, func, global_imports, params_db)
-        # print('param_metadata', param_metadata)
+
         if not param_metadata is None:
             for param in param_metadata:
                 name = param.get("name", "")
