@@ -3,7 +3,7 @@
 This repository contains the code for MP system designed as part of CS 329M project. 
 
 A high-level system design of the project is provided below:
-[assets/system_design.png](System Design)
+![assets/system_design.png](System Design)
 
 ### Installation
 
