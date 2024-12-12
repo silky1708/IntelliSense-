@@ -1,12 +1,13 @@
-### IntelliSense++
+# IntelliSense++
 
 This repository contains the code for MP system designed as part of CS 329M project. 
 
-
+A high-level system design of the project is provided below:
+[assets/system_design.png](System Design)
 
 ### Installation
 
-Create a virtual environment and install flask, react, and vite. Additionally, ensure that all the requirements of [https://github.com/jifengwu2k/quac](QuAC) are installed in the same environment, following their installation instructions.
+Create a virtual environment and install flask, react, npm, and vite. Additionally, ensure that all the requirements of [QuAC](https://github.com/jifengwu2k/quac) are installed in the same environment, following the installation instructions given in their repository.
 
 ### Running the web application
 
